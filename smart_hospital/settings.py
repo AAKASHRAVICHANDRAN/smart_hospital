@@ -1,13 +1,16 @@
 from pathlib import Path
 import os
+from decouple import config, Csv
 
 # Base Directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Security
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "change-me-for-prod")
-DEBUG = True
-ALLOWED_HOSTS = ["*"]  # Allow all hosts in development
+SECRET_KEY = config("DJANGO_SECRET_KEY", default="change-me-for-prod")
+
+DEBUG = config("DEBUG", default=True, cast=bool)
+
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="*", cast=Csv())
 
 # Installed Apps
 INSTALLED_APPS = [
@@ -21,7 +24,7 @@ INSTALLED_APPS = [
     # Local Apps
     "accounts",
     "hospital",
-    'widget_tweaks',
+    "widget_tweaks",
 ]
 
 # Middleware
@@ -55,7 +58,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "smart_hospital.wsgi.application"
 
-# Database
+# Database (SQLite for local + PA)
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -74,8 +77,8 @@ USE_TZ = True
 
 # Static Files
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "static"]   # local static
+STATIC_ROOT = BASE_DIR / "staticfiles"     # PythonAnywhere collectstatic output
 
 # Media Files
 MEDIA_URL = "/media/"
