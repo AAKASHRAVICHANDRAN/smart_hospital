@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-2xl font-semibold mb-4">Doctor Dashboard</h2>
+<div class="grid grid-cols-2 gap-4">
+  <div class="bg-white p-4 rounded shadow">
+    <h3 class="font-semibold">Upcoming Appointments</h3>
+    <p class="text-sm text-slate-600">Manage your schedule</p>
+    <a href="{% url 'hospital:appointments_list' %}" class="mt-3 inline-block text-blue-600">View appointments</a>
+  </div>
+  <div class="bg-white p-4 rounded shadow">
+    <h3 class="font-semibold">Patient Records</h3>
+    <p class="text-sm text-slate-600">Create or view medical records</p>
+    <a href="{% url 'hospital:records_list' %}" class="mt-3 inline-block text-blue-600">View records</a>
+  </div>
+</div>
+{% endblock %}

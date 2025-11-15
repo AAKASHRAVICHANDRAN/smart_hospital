@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-2xl font-semibold mb-4">Patients List</h2>
+<table class="min-w-full bg-white shadow rounded">
+  <thead>
+    <tr class="bg-gray-200 text-left">
+      <th class="px-4 py-2">Username</th>
+      <th class="px-4 py-2">Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for patient in patients %}
+    <tr class="border-t">
+      <td class="px-4 py-2">{{ patient.username }}</td>
+      <td class="px-4 py-2">{{ patient.email }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

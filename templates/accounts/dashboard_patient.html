@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-2xl font-semibold mb-4">Patient Dashboard</h2>
+<div class="bg-white p-4 rounded shadow">
+  <h3 class="font-semibold">My Appointments</h3>
+  <a href="{% url 'hospital:appointments_list' %}" class="text-blue-600">View</a>
+</div>
+{% endblock %}

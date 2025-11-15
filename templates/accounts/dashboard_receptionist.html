@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-2xl font-semibold mb-4">Reception Dashboard</h2>
+<div class="grid grid-cols-2 gap-4">
+  <div class="bg-white p-4 rounded shadow">
+    <h3 class="font-semibold">All Appointments</h3>
+    <a href="{% url 'accounts:appointments_list' %}" class="text-blue-600">Manage</a>
+  </div>
+  <div class="bg-white p-4 rounded shadow">
+    <h3 class="font-semibold">Patients</h3>
+    <a href="{% url 'accounts:patients_list' %}" class="text-blue-600">View Patients</a>
+  </div>
+</div>
+{% endblock %}

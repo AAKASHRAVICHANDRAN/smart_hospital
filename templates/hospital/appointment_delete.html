@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-2xl font-semibold mb-4">Delete Appointment</h2>
+<div class="bg-white p-4 rounded shadow">
+  <p>Are you sure you want to delete appointment between {{ appointment.patient.username }} and {{ appointment.doctor.username }}?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button class="px-4 py-2 bg-red-600 text-white rounded mt-4">Confirm Delete</button>
+    <a href="{% url 'hospital:appointments_list' %}" class="ml-4">Cancel</a>
+  </form>
+</div>
+{% endblock %}

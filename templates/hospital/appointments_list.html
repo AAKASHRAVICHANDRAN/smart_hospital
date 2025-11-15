@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex justify-between items-center mb-4">
+  <h2 class="text-2xl font-semibold">Appointments</h2>
+  <a href="{% url 'hospital:appointment_create' %}" class="px-4 py-2 bg-blue-600 text-white rounded">New</a>
+</div>
+
+<div class="space-y-4">
+  {% for appt in appointments %}
+  <div class="bg-white p-4 rounded shadow flex justify-between items-center">
+    <div>
+      <div class="font-semibold">{{ appt.patient.username }} → {{ appt.doctor.username }}</div>
+      <div class="text-sm text-slate-600">{{ appt.start_time }}</div>
+    </div>
+    <div class="flex gap-2">
+      <a href="{% url 'hospital:appointment_edit' appt.pk %}" class="text-blue-600">Edit</a>
+      <form action="{% url 'hospital:appointment_delete' appt.pk %}" method="post" class="inline">
+        {% csrf_token %}
+        <button class="text-red-600 ml-2">Delete</button>
+      </form>
+    </div>
+  </div>
+  {% empty %}
+    <div class="text-slate-600">No appointments found.</div>
+  {% endfor %}
+</div>
+{% endblock %}

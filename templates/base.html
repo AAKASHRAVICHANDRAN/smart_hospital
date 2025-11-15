@@ -1,0 +1,43 @@
+{% load static %}
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Smart Hospital</title>
+    <!-- Tailwind CDN for quick styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  </head>
+  <body class="bg-slate-50 min-h-screen">
+    <header class="bg-white shadow">
+      <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+          <div class="bg-blue-600 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center">H</div>
+          <a href="/" class="text-lg font-semibold text-slate-800">Smart Hospital</a>
+        </div>
+        <nav class="flex items-center gap-4">
+          <a href="/" class="text-slate-700">Home</a>
+          <a href="{% url 'hospital:appointments_list' %}" class="text-slate-700">Appointments</a>
+          <a href="{% url 'hospital:records_list' %}" class="text-slate-700">Records</a>
+          {% if user.is_authenticated %}
+            <span class="text-slate-600 hidden sm:inline">|</span>
+            <span class="text-slate-700">Hello, {{ user.username }}</span>
+            <a href="{% url 'accounts:logout' %}" class="ml-4 text-red-600">Logout</a>
+          {% else %}
+            <a href="{% url 'accounts:login' %}" class="text-slate-700">Sign in</a>
+            <a href="{% url 'accounts:register' %}" class="text-slate-700">Register</a>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto p-6">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="mt-12 text-center text-sm text-slate-500 py-6">
+      © Smart Hospital
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex justify-between items-center mb-4">
+  <h2 class="text-2xl font-semibold">Medical Records</h2>
+  {% if user.is_doctor %}
+    <a href="{% url 'hospital:record_create' %}" class="px-4 py-2 bg-blue-600 text-white rounded">New Record</a>
+  {% endif %}
+</div>
+
+<div class="space-y-4">
+  {% for rec in records %}
+  <div class="bg-white p-4 rounded shadow">
+    <div class="font-semibold">{{ rec.patient.username }}</div>
+    <div class="text-sm text-slate-600">By: {{ rec.doctor }} on {{ rec.created_at }}</div>
+    <p class="mt-2">{{ rec.notes }}</p>
+  </div>
+  {% empty %}
+    <div class="text-slate-600">No records found.</div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-2xl font-semibold mb-4">Appointments List</h2>
+<table class="min-w-full bg-white shadow rounded">
+  <thead>
+    <tr class="bg-gray-200 text-left">
+      <th class="px-4 py-2">Patient</th>
+      <th class="px-4 py-2">Doctor</th>
+      <th class="px-4 py-2">Datetime</th>
+      <th class="px-4 py-2">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for appointment in appointments %}
+    <tr class="border-t">
+      <td class="px-4 py-2">{{ appointment.patient.username }}</td>
+      <td class="px-4 py-2">{{ appointment.doctor.username }}</td>
+      <td class="px-4 py-2">{{ appointment.datetime }}</td>
+      <td class="px-4 py-2">{{ appointment.status }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

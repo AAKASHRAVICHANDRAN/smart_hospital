@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-50">
+  <div class="w-full max-w-md bg-white p-10 rounded-2xl shadow-xl">
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Create an Account</h2>
+    <form method="post" class="space-y-6">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <!-- Username -->
+      <div class="relative">
+        {{ form.username|add_class:"peer w-full px-3 pt-5 pb-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500" }}
+        {{ form.username.errors }}
+        <label class="absolute left-3 top-2 text-gray-400 text-sm transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-green-500 peer-focus:text-sm">
+          Username
+        </label>
+      </div>
+
+      <!-- Email -->
+      <div class="relative">
+        {{ form.email|add_class:"peer w-full px-3 pt-5 pb-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500" }}
+        {{ form.email.errors }}
+        <label class="absolute left-3 top-2 text-gray-400 text-sm transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-green-500 peer-focus:text-sm">
+          Email
+        </label>
+      </div>
+
+      <!-- Role -->
+      <div class="relative">
+        {{ form.role|add_class:"peer w-full px-3 pt-5 pb-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500" }}
+        <label class="absolute left-3 top-2 text-gray-400 text-sm transition-all peer-focus:top-2 peer-focus:text-green-500 peer-focus:text-sm">
+          Role
+        </label>
+      </div>
+
+      <!-- Password -->
+      <div class="relative">
+        {{ form.password1|add_class:"peer w-full px-3 pt-5 pb-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500" }}
+        {{ form.password1.errors }}
+        <label class="absolute left-3 top-2 text-gray-400 text-sm transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-green-500 peer-focus:text-sm">
+          Password
+        </label>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="relative">
+        {{ form.password2|add_class:"peer w-full px-3 pt-5 pb-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500" }}
+        {{ form.password2.errors }}
+        <label class="absolute left-3 top-2 text-gray-400 text-sm transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-green-500 peer-focus:text-sm">
+          Confirm Password
+        </label>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="w-full py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-200 shadow-md">
+        Register
+      </button>
+    </form>
+
+    <p class="mt-6 text-center text-sm text-gray-600">
+      Already have an account? <a href="{% url 'accounts:login' %}" class="text-green-600 hover:underline">Login</a>
+    </p>
+  </div>
+</div>
+{% endblock %}
