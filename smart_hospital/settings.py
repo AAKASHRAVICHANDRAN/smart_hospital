@@ -14,7 +14,7 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS",
-    default="your-app-name.onrender.com",
+    default="smart-hospital-4niq.onrender.com",
     cast=Csv()
 )
 
