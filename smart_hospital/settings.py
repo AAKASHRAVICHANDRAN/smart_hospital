@@ -1,15 +1,26 @@
 from pathlib import Path
 import os
+from decouple import config, Csv
 
 # Base Directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Security
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "change-me-for-prod")
-DEBUG = True
-ALLOWED_HOSTS = ["*"]  # Allow all hosts in development
+# =========================
+# SECURITY SETTINGS
+# =========================
+SECRET_KEY = config("DJANGO_SECRET_KEY", default="change-me-for-prod")
 
-# Installed Apps
+DEBUG = config("DEBUG", default=False, cast=bool)
+
+ALLOWED_HOSTS = config(
+    "ALLOWED_HOSTS",
+    default="your-app-name.onrender.com",
+    cast=Csv()
+)
+
+# =========================
+# APPLICATIONS
+# =========================
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -21,12 +32,17 @@ INSTALLED_APPS = [
     # Local Apps
     "accounts",
     "hospital",
-    'widget_tweaks',
+
+    # Third-party
+    "widget_tweaks",
 ]
 
-# Middleware
+# =========================
+# MIDDLEWARE
+# =========================
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # ✅ for static files
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -34,9 +50,16 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
 ]
 
+# =========================
+# URLS & WSGI
+# =========================
 ROOT_URLCONF = "smart_hospital.urls"
 
-# Templates
+WSGI_APPLICATION = "smart_hospital.wsgi.application"
+
+# =========================
+# TEMPLATES
+# =========================
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -53,9 +76,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "smart_hospital.wsgi.application"
-
-# Database
+# =========================
+# DATABASE (SQLite for now)
+# =========================
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -63,23 +86,44 @@ DATABASES = {
     }
 }
 
-# Custom User Model
+# =========================
+# CUSTOM USER MODEL
+# =========================
 AUTH_USER_MODEL = "accounts.User"
 
-# Internationalization
+# =========================
+# INTERNATIONALIZATION
+# =========================
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
-# Static Files
+# =========================
+# STATIC FILES
+# =========================
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "static"]   # local static
+STATIC_ROOT = BASE_DIR / "staticfiles"     # collected static (Render)
 
-# Media Files
+# WhiteNoise static storage
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# =========================
+# MEDIA FILES
+# =========================
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-# Default Auto Field
+# =========================
+# DEFAULT AUTO FIELD
+# =========================
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# =========================
+# SECURITY (PRODUCTION)
+# =========================
+if not DEBUG:
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = "DENY"
