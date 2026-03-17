@@ -12,11 +12,10 @@ SECRET_KEY = config("DJANGO_SECRET_KEY", default="change-me-for-prod")
 
 DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = config(
+ALLOWED_HOSTS = os.environ.get(
     "ALLOWED_HOSTS",
-    default="smart-hospital-4niq.onrender.com",
-    cast=Csv()
-)
+    "smart-hospital-4niq.onrender.com"
+).split(",")
 
 # =========================
 # APPLICATIONS
