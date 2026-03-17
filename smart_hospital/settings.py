@@ -12,10 +12,7 @@ SECRET_KEY = config("DJANGO_SECRET_KEY", default="change-me-for-prod")
 
 DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = os.environ.get(
-    "ALLOWED_HOSTS",
-    "smart-hospital-4niq.onrender.com"
-).split(",")
+ALLOWED_HOSTS = [".onrender.com", "127.0.0.1", "localhost"]
 
 # =========================
 # APPLICATIONS
